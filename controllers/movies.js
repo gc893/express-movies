@@ -3,11 +3,12 @@ const Movie = require('../models/movie')
 module.exports = {
     new: newMovie,
     create,
-    index
+    index,
+    show
 };
 
 function newMovie(req, res ,next) {
-    res.render('movies/new');
+    res.render('movies/new', {title: 'New Movie'});
 };
 
 function create(req, res) {
@@ -30,5 +31,11 @@ function create(req, res) {
 function index(req, res) {
     Movie.find({}, function (err, movies) {
         res.render('movies/index', {movies, title: 'All Movies'});
+    })
+}
+
+function show(req, res, next) {
+    Movie.findById(req.params.id, function (err, movie) {
+        res.render('movies/show', {movie, title: movie.title})
     })
 }
