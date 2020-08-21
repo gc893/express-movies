@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const Performer = require('../models/performer')
 
 const reviewSchema = new Schema({
     content: String,
@@ -16,7 +17,8 @@ const movieSchema = new Schema({
                 min: 1927},
     mpaaRating: {type: String, enum: ['G','PG','PG-13', 'R']},
     nowShowing: {type: Boolean, default: false},
-    reviews: [reviewSchema]
+    reviews: [reviewSchema],
+    cast: [{type: Schema.Types.ObjectId, ref: 'Performer'}]
 }, {
     timestamps: true
 });
